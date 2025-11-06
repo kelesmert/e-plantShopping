@@ -374,26 +374,32 @@ function ProductList({ onHomeClick }) {
                     (
                       plant,
                       plantIndex // Loop through each plant in the current category
-                    ) => (
-                      <div className="product-card" key={plantIndex}>
-                        <img
-                          className="product-image"
-                          src={plant.image}
-                          alt={plant.name}
-                        />
-                        <div className="product-title">{plant.name}</div>
-                        <div className="product-description">
-                          {plant.description}
+                    ) => {
+                      const isAdded = addedToCart[plant.name];
+
+                      return (
+                        <div className="product-card" key={plantIndex}>
+                          <img
+                            className="product-image"
+                            src={plant.image}
+                            alt={plant.name}
+                          />
+                          <div className="product-title">{plant.name}</div>
+                          <div className="product-description">
+                            {plant.description}
+                          </div>
+                          <div className="product-cost">{plant.cost}</div>
+                          <button
+                            className="product-button"
+                            type="button"
+                            onClick={() => handleAddToCart(plant)}
+                            disabled={isAdded}
+                          >
+                            {isAdded ? "Added" : "Add to Cart"}
+                          </button>
                         </div>
-                        <div className="product-cost">{plant.cost}</div>
-                        <button
-                          className="product-button"
-                          onClick={() => handleAddToCart(plant)}
-                        >
-                          Add to Cart
-                        </button>
-                      </div>
-                    )
+                      );
+                    }
                   )}
                 </div>
               </div>
